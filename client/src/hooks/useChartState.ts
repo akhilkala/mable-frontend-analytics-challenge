@@ -1,10 +1,5 @@
 import { useReducer } from "react";
-
-interface IChartState {
-  startDate: Date;
-  endDate: Date;
-  data: any;
-}
+import { IChartState } from "../utils/types";
 
 interface IAction {
   type: string;

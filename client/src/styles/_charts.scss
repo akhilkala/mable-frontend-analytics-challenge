@@ -1,3 +1,14 @@
+.chart-section{
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem 0;
+    h1 {
+        font-size: 2rem;
+        margin-bottom: 1rem;
+    }
+}
 .pie-chart{
     &__labels{
         font-size: 1.2rem;

@@ -6,6 +6,12 @@ export type Children = {
   children: ReactElement | ReactElement[];
 };
 
+export interface IChartState {
+  startDate: Date;
+  endDate: Date;
+  data: any;
+}
+
 export interface IData {
   channelGrouping: string;
   date: Date;

@@ -1,15 +1,4 @@
 .app{
     min-height: 100vh;
     display: flex;
-    &__section{
-        flex: 1;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        padding: 2rem 0;
-        h1 {
-            font-size: 2rem;
-            margin-bottom: 1rem;
-        }
-    }
 }
