@@ -11,26 +11,25 @@ interface Props {
     setData: (data: any) => void;
   } & IChartState;
   children: ReactElement;
+  key: string;
 }
 
 export default function ChartSection({
   heading,
   state,
   children,
+  key,
 }: Props): ReactElement {
   const data = useData();
 
   const handleApply = async () => {
-    const frequency: any = {};
-    data
-      ?.getFilteredSessions(state.startDate, state.endDate)
-      ?.forEach((entry) => {
-        if (frequency[entry.device.deviceCategory] === undefined) {
-          frequency[entry.device.deviceCategory] = 0;
-        } else {
-          frequency[entry.device.deviceCategory]++;
-        }
-      });
+    const frequencies = data?.getReducedAmounts(
+      data.sessions,
+      state.startDate,
+      state.endDate
+    );
+
+    const frequency = frequencies.device.deviceCategory;
 
     const pieData: IPieData[] = [];
     Object.keys(frequency).forEach((name) => {
@@ -52,6 +51,7 @@ export default function ChartSection({
         endDate={state.endDate}
         setEndDate={state.setEndDate}
         onApply={handleApply}
+        key={key}
       />
       {!!state.data && children}
     </section>

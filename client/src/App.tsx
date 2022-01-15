@@ -2,6 +2,7 @@ import React from "react";
 import PieChart from "./components/PieChart";
 import useChartState from "./hooks/useChartState";
 import ChartSection from "./components/ChartSection";
+import LineChart from "./components/LineChart";
 
 function App() {
   const pieState = useChartState();
@@ -9,14 +10,11 @@ function App() {
 
   return (
     <main className="app">
-      <ChartSection heading="Device Category Ratio" state={pieState}>
+      <ChartSection key="pie" heading="Device Category Ratio" state={pieState}>
         <PieChart data={pieState.data} />
       </ChartSection>
-      <ChartSection heading="Line Chart" state={lineState}>
-        <PieChart data={lineState.data} />
-      </ChartSection>
-      <ChartSection heading="Line Chart" state={lineState}>
-        <PieChart data={lineState.data} />
+      <ChartSection key="line" heading="Line Chart" state={lineState}>
+        <LineChart />
       </ChartSection>
     </main>
   );

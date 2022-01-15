@@ -32,9 +32,6 @@ export default function useChartState() {
 
   const [state, dispatch] = useReducer(reducer, initialState);
 
-  //@ts-ignore
-  console.log(data.getReducedAmounts());
-
   return {
     ...state,
     setStartDate: (date: Date) =>

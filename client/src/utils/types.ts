@@ -12,6 +12,11 @@ export interface IChartState {
   data: any;
 }
 
+export interface IPieData {
+  name: string;
+  value: number;
+}
+
 export interface IData {
   channelGrouping: string;
   date: Date;
@@ -48,9 +53,4 @@ export interface IData {
   visitId: number;
   visitNumber: number;
   visitStartTime: number;
-}
-
-export interface IPieData {
-  name: string;
-  value: number;
 }

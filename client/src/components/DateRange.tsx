@@ -9,6 +9,7 @@ interface Props {
   endDate: Date;
   setEndDate: (date: Date) => void;
   onApply: () => Promise<void>;
+  key: string;
 }
 
 export default function DateRange({
@@ -17,17 +18,18 @@ export default function DateRange({
   endDate,
   setEndDate,
   onApply,
+  key,
 }: Props): ReactElement {
   const data = useData();
 
   return (
     <div className="date-range">
       <div className="date-range__group">
-        <label htmlFor="start-date-pie">
+        <label htmlFor={`start-date-${key}`}>
           <h3>Start Date :</h3>
         </label>
         <DatePicker
-          id="start-date-pie"
+          id={`start-date-${key}`}
           className="date-range__picker"
           selected={startDate}
           onChange={setStartDate}
@@ -36,11 +38,11 @@ export default function DateRange({
         />
       </div>
       <div className="date-range__group">
-        <label htmlFor="end-date-pie">
+        <label htmlFor={`end-date-${key}`}>
           <h3>End Date :</h3>
         </label>
         <DatePicker
-          id="end-date-pie"
+          id={`end-date-${key}`}
           className="date-range__picker"
           selected={endDate}
           onChange={setEndDate}
