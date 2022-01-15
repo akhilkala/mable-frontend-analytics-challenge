@@ -1,0 +1,26 @@
+.date-range{
+    &__group{
+        margin-bottom: 1rem;
+    }
+    &__picker{
+        padding: 4px 10px;
+        border:none;
+        background-color: #f3f3f3;
+        border-radius: 5px;
+        font-size: 1.25rem;
+        cursor: pointer;
+    }
+    &__btn{
+        width: 100%;
+        padding: 4px;
+        font-size: 1.25rem;
+        border-radius: 5px;
+        cursor: pointer;
+    background: #0092ca;
+    color: #fff;
+    font-weight: bold;
+    margin-top: 1rem;
+    }
+}
+
+
