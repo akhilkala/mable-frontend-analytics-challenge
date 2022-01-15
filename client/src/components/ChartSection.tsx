@@ -26,8 +26,8 @@ export default function ChartSection({
       ?.filter((entry) => {
         const EntryDateTime = new Date(entry.date).getTime();
         return (
-          EntryDateTime > state.startDate.getTime() &&
-          EntryDateTime < state.endDate.getTime()
+          EntryDateTime >= state.startDate.getTime() &&
+          EntryDateTime <= state.endDate.getTime()
         );
       })
       ?.forEach((entry) => {
@@ -48,6 +48,7 @@ export default function ChartSection({
 
     state.setData(pieData);
   };
+
   return (
     <section className="chart-section">
       <h1>{heading}</h1>

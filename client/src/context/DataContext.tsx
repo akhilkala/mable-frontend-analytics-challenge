@@ -5,6 +5,8 @@ import { Children, IData, Nullable } from "../utils/types";
 
 type Value = {
   entries: Nullable<IData[]>;
+  getMinimumDate: () => Date | undefined;
+  getMaximumDate: () => Date | undefined;
 };
 
 const DataContext = React.createContext<Nullable<Value>>(null);
@@ -44,8 +46,34 @@ export default function DataProvider({ children }: Children): ReactElement {
     </div>;
   }
 
+  const getMinimumDate = () => {
+    return data
+      ?.map((entry) => new Date(entry.date))
+      .reduce((min, current) => {
+        if (current.getTime() < min.getTime()) {
+          return current;
+        } else {
+          return min;
+        }
+      });
+  };
+
+  const getMaximumDate = () => {
+    return data
+      ?.map((entry) => new Date(entry.date))
+      .reduce((min, current) => {
+        if (current.getTime() > min.getTime()) {
+          return current;
+        } else {
+          return min;
+        }
+      });
+  };
+
   const value = {
     entries: data,
+    getMinimumDate,
+    getMaximumDate,
   };
 
   return <DataContext.Provider value={value}>{children}</DataContext.Provider>;

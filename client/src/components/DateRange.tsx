@@ -1,6 +1,7 @@
 import React, { ReactElement } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { useData } from "../context/DataContext";
 
 interface Props {
   startDate: Date;
@@ -17,6 +18,8 @@ export default function DateRange({
   setEndDate,
   onApply,
 }: Props): ReactElement {
+  const data = useData();
+
   return (
     <div className="date-range">
       <div className="date-range__group">
@@ -28,8 +31,8 @@ export default function DateRange({
           className="date-range__picker"
           selected={startDate}
           onChange={setStartDate}
-          minDate={new Date("2017-08-01")}
-          maxDate={new Date("2018-06-01")}
+          minDate={data?.getMinimumDate()}
+          maxDate={data?.getMaximumDate()}
         />
       </div>
       <div className="date-range__group">
@@ -41,8 +44,8 @@ export default function DateRange({
           className="date-range__picker"
           selected={endDate}
           onChange={setEndDate}
-          minDate={new Date("2017-08-01")}
-          maxDate={new Date("2018-06-01")}
+          minDate={data?.getMinimumDate()}
+          maxDate={data?.getMaximumDate()}
         />
       </div>
       <button onClick={onApply} className="btn date-range__btn">

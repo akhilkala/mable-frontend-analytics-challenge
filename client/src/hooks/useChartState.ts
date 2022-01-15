@@ -1,4 +1,5 @@
 import { useReducer } from "react";
+import { useData } from "../context/DataContext";
 import { IChartState } from "../utils/types";
 
 interface IAction {
@@ -21,9 +22,11 @@ function reducer(state: IChartState, action: IAction): IChartState {
 }
 
 export default function useChartState() {
+  const data = useData();
+
   const initialState = {
-    startDate: new Date("2017-08-01"),
-    endDate: new Date("2017-08-01"),
+    startDate: data?.getMinimumDate() || new Date(),
+    endDate: data?.getMaximumDate() || new Date(),
     data: null,
   };
 
