@@ -22,14 +22,8 @@ export default function ChartSection({
 
   const handleApply = async () => {
     const frequency: any = {};
-    data?.entries
-      ?.filter((entry) => {
-        const EntryDateTime = new Date(entry.date).getTime();
-        return (
-          EntryDateTime >= state.startDate.getTime() &&
-          EntryDateTime <= state.endDate.getTime()
-        );
-      })
+    data
+      ?.getFilteredSessions(state.startDate, state.endDate)
       ?.forEach((entry) => {
         if (frequency[entry.device.deviceCategory] === undefined) {
           frequency[entry.device.deviceCategory] = 0;

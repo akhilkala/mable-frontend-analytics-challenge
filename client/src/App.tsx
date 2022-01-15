@@ -15,6 +15,9 @@ function App() {
       <ChartSection heading="Line Chart" state={lineState}>
         <PieChart data={lineState.data} />
       </ChartSection>
+      <ChartSection heading="Line Chart" state={lineState}>
+        <PieChart data={lineState.data} />
+      </ChartSection>
     </main>
   );
 }

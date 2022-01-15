@@ -1,6 +1,6 @@
 import { ReactElement } from "react";
 
-export type Nullable<T> = null | T;
+export type Nullable<T> = null | undefined | T;
 
 export type Children = {
   children: ReactElement | ReactElement[];
