@@ -1,15 +1,14 @@
 import React from "react";
 import PieChart from "./components/Pie";
 import DateRange from "./components/DateRange";
-import Loading from "./components/Loading";
 import useChartState from "./hooks/useChartState";
-import useFetch from "./hooks/useFetch";
 import { IPieData } from "./utils/types";
+import { useData } from "./context/DataContext";
 
 function App() {
   const pieState = useChartState();
   const lineState = useChartState();
-  const fetcher = useFetch(`${process.env.REACT_APP_API_URI}/data`);
+  const data = useData();
 
   // const getPieData = (cb: (entry: IData) => string | number) => {
 
@@ -17,7 +16,7 @@ function App() {
 
   const handlePieApply = async () => {
     const frequency: any = {};
-    fetcher.data
+    data?.entries
       ?.filter((entry) => {
         const EntryDateTime = new Date(entry.date).getTime();
         return (
@@ -41,22 +40,10 @@ function App() {
       });
     });
 
-    if (fetcher.data) {
-      console.log(new Date(fetcher.data[0].date).getTime());
-    }
-
     pieState.setData(pieData);
   };
 
   const handleLineApply = async () => {};
-
-  if (fetcher.isLoading) {
-    return (
-      <div className="screen-center">
-        <Loading />
-      </div>
-    );
-  }
 
   return (
     <main className="app">
