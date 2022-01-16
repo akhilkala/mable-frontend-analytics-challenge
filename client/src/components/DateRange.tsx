@@ -8,8 +8,7 @@ interface Props {
   setStartDate: (date: Date) => void;
   endDate: Date;
   setEndDate: (date: Date) => void;
-  onApply: () => Promise<void>;
-  key: string;
+  identifier: string;
 }
 
 export default function DateRange({
@@ -17,19 +16,18 @@ export default function DateRange({
   setStartDate,
   endDate,
   setEndDate,
-  onApply,
-  key,
+  identifier,
 }: Props): ReactElement {
   const data = useData();
 
   return (
     <div className="date-range">
       <div className="date-range__group">
-        <label htmlFor={`start-date-${key}`}>
+        <label htmlFor={`start-date-${identifier}`}>
           <h3>Start Date :</h3>
         </label>
         <DatePicker
-          id={`start-date-${key}`}
+          id={`start-date-${identifier}`}
           className="date-range__picker"
           selected={startDate}
           onChange={setStartDate}
@@ -38,11 +36,11 @@ export default function DateRange({
         />
       </div>
       <div className="date-range__group">
-        <label htmlFor={`end-date-${key}`}>
+        <label htmlFor={`end-date-${identifier}`}>
           <h3>End Date :</h3>
         </label>
         <DatePicker
-          id={`end-date-${key}`}
+          id={`end-date-${identifier}`}
           className="date-range__picker"
           selected={endDate}
           onChange={setEndDate}
@@ -50,9 +48,6 @@ export default function DateRange({
           maxDate={data?.getMaximumDate()}
         />
       </div>
-      <button onClick={onApply} className="btn date-range__btn">
-        Apply
-      </button>
     </div>
   );
 }

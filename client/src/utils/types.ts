@@ -10,11 +10,21 @@ export interface IChartState {
   startDate: Date;
   endDate: Date;
   data: any;
+  timelineFilter: string;
+  setStartDate: (date: Date) => void;
+  setEndDate: (date: Date) => void;
+  setData: (data: any) => void;
+  setTimelineFilter: (filter: string) => void;
 }
 
 export interface IPieData {
   name: string;
   value: number;
+}
+
+export interface ILineData {
+  name: string;
+  views: number;
 }
 
 export interface IData {

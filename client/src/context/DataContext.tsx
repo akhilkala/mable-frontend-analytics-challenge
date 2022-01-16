@@ -132,8 +132,12 @@ export default function DataProvider({ children }: Children): ReactElement {
     startDate = getMinimumDate(),
     endDate = getMaximumDate()
   ) => {
-    return _getGroupedBy(sessions, startDate, endDate, (date) =>
-      date.getTime().toString()
+    return _getGroupedBy(
+      sessions,
+      startDate,
+      endDate,
+      (date) =>
+        `${date.getDate()} - ${date.getMonth() + 1} - ${date.getFullYear()}`
     );
   };
 
@@ -184,7 +188,26 @@ export default function DataProvider({ children }: Children): ReactElement {
       reducedGroups[group] = frequency;
     });
 
-    return reducedGroups;
+    const formattedGroups: any = {};
+    Object.keys(reducedGroups).forEach((groupName) => {
+      const reducedTotals: any = {};
+      const totals = reducedGroups[groupName].totals;
+      Object.keys(totals).forEach((key) => {
+        if (reducedTotals[key] === undefined) {
+          reducedTotals[key] = 0;
+        }
+        reducedTotals[key] += Object.keys(totals[key]).reduce(
+          (acc, c) => acc + parseInt(c) * parseInt(totals[key][c]),
+          0
+        );
+      });
+      formattedGroups[groupName] = {
+        ...reducedGroups[groupName],
+        totals: reducedTotals,
+      };
+    });
+
+    return formattedGroups;
   };
 
   const getReducedAmountsByDay = (

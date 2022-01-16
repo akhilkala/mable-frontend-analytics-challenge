@@ -8,9 +8,6 @@
 * `cd api && npm run dev`
 * `cd client && npm start`
 
-## How it works
-
-***
 
 ### Data Parsing
 
@@ -28,3 +25,10 @@
 * src/components/DateRange is a dumb component used to render date filters
 * src/components/LineChart and src/components/PieChart are the chart components
 * src/hooks/useChartState is used to track chart filter state
+
+
+### Problems
+
+* Client is slow because it has a lot of data in memory, ideally should make API call for only required data
+* Not Resonsive below 560px
+* Favicon has not been changed

@@ -2,46 +2,31 @@ import React, { ReactElement } from "react";
 import { useData } from "../context/DataContext";
 import { IChartState, IPieData } from "../utils/types";
 import DateRange from "./DateRange";
+import Select from "react-select";
 
 interface Props {
   heading: string;
-  state: {
-    setStartDate: (date: Date) => void;
-    setEndDate: (date: Date) => void;
-    setData: (data: any) => void;
-  } & IChartState;
+  state: IChartState;
   children: ReactElement;
-  key: string;
+  identifier: string;
+  timeLineSelection?: boolean;
+  onApply: (state: IChartState) => Promise<void>;
 }
+
+const options = [
+  { value: "daily", label: "Daily" },
+  { value: "monthly", label: "Monthly" },
+  { value: "yearly", label: "Yearly" },
+];
 
 export default function ChartSection({
   heading,
   state,
   children,
-  key,
+  identifier,
+  timeLineSelection,
+  onApply,
 }: Props): ReactElement {
-  const data = useData();
-
-  const handleApply = async () => {
-    const frequencies = data?.getReducedAmounts(
-      data.sessions,
-      state.startDate,
-      state.endDate
-    );
-
-    const frequency = frequencies.device.deviceCategory;
-
-    const pieData: IPieData[] = [];
-    Object.keys(frequency).forEach((name) => {
-      pieData.push({
-        name,
-        value: frequency[name],
-      });
-    });
-
-    state.setData(pieData);
-  };
-
   return (
     <section className="chart-section">
       <h1>{heading}</h1>
@@ -50,9 +35,21 @@ export default function ChartSection({
         setStartDate={state.setStartDate}
         endDate={state.endDate}
         setEndDate={state.setEndDate}
-        onApply={handleApply}
-        key={key}
+        identifier={identifier}
       />
+      {!!timeLineSelection && (
+        <Select
+          onChange={(option) =>
+            state.setTimelineFilter(option?.value || "daily")
+          }
+          defaultValue={options[0]}
+          className="chart-section__dropdown"
+          options={options}
+        />
+      )}
+      <button onClick={() => onApply(state)} className="chart-section__btn">
+        Apply
+      </button>
       {!!state.data && children}
     </section>
   );
